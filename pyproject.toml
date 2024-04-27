@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "LAB1_CNN"
+version = "0.1.0"
+description = ""
+authors = ["Dmytro-Hladkykh <152580956+Dmytro-Hladkykh@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

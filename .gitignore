@@ -1,0 +1,8 @@
+__pycache__/
+data/
+batches/
+combined_data/
+trained_model.pth/
+training.log/
+training_validation_loss.png/
+validation_accuracy.png/
