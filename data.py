@@ -4,15 +4,19 @@ import torch
 from torchvision import datasets, transforms
 from torch.utils.data import Dataset, DataLoader
 from PIL import Image
+import logging
+
+logger = logging.getLogger(__name__)
 
 def get_class_labels():
     return ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
 
 def combine_batches_physically(batch_dir, selected_batches):
-    """
-    Объединяет выбранные батчи физически, копируя изображения и метки в новый каталог.
-    """
-    combined_dir = "combined_data"
+    combined_dir = f"combined_batches_{'-'.join(map(str, selected_batches))}"
+    if os.path.exists(combined_dir):
+        logger.info(f"Using existing combined directory: {combined_dir}")
+        return combined_dir
+
     os.makedirs(combined_dir, exist_ok=True)
     os.makedirs(os.path.join(combined_dir, "images"), exist_ok=True)
     os.makedirs(os.path.join(combined_dir, "test", "images"), exist_ok=True)
@@ -20,6 +24,8 @@ def combine_batches_physically(batch_dir, selected_batches):
     # Создаем файл меток для тестового набора
     test_labels_file = os.path.join(combined_dir, "test", "labels.txt")
     open(test_labels_file, 'w').close()  # Создаем пустой файл
+
+    logger.info(f"Combining batches {', '.join(map(str, selected_batches))} into {combined_dir}")
 
     for batch_idx in selected_batches:
         batch_path = os.path.join(batch_dir, f"batch_{batch_idx}")
@@ -35,9 +41,6 @@ def combine_batches_physically(batch_dir, selected_batches):
     return combined_dir
 
 def split_combined_dataset(combined_dir, train_val_split):
-    """
-    Разделяет комбинированный датасет на наборы для обучения, валидации и тестирования.
-    """
     dataset = CustomDataset(combined_dir)
     train_size = int(train_val_split * len(dataset))
     val_size = len(dataset) - train_size
@@ -87,7 +90,13 @@ def load_cifar10(root):
     return cifar10
 
 def split_dataset_into_batches(dataset, num_batches, batch_dir):
+    if os.path.exists(batch_dir):
+        logger.info(f"Using existing batch directory: {batch_dir}")
+        return
+
     os.makedirs(batch_dir, exist_ok=True)
+
+    logger.info(f"Splitting dataset into {num_batches} batches and saving to {batch_dir}")
 
     for i in range(num_batches):
         batch_path = os.path.join(batch_dir, f"batch_{i+1}")
@@ -104,27 +113,21 @@ def split_dataset_into_batches(dataset, num_batches, batch_dir):
             f.write(f"{i},{dataset.classes[label]}\n")
 
 def get_data_loaders(config, root):
-    # Load CIFAR-10
+    # Загрузить CIFAR-10
     cifar10 = load_cifar10(root)
 
-    # Split dataset into batches
+    # Разделить датасет на батчи
     batch_dir = "batches"
     split_dataset_into_batches(cifar10, config.num_batches, batch_dir)
 
-    # Combine batches according to the configuration
-    if config.combination_method == "physical":
-        combined_dir = combine_batches_physically(batch_dir, config.selected_batches)
-    else:
-        combined_dir = combine_batches_physically(batch_dir, config.selected_batches)
+    # Комбинировать батчи в соответствии с конфигурацией
+    combined_dir = combine_batches_physically(batch_dir, config.selected_batches)
 
-    # Split the combined dataset into train, val, test
+    # Разделить комбинированный датасет на train, val, test
     original_dataset = CustomDataset(combined_dir)
-    train_size = int(config.train_val_split * len(original_dataset))
-    val_size = len(original_dataset) - train_size
-    train_dataset, val_dataset = torch.utils.data.random_split(original_dataset, [train_size, val_size])
-    test_dataset = CustomDataset(os.path.join(combined_dir, "test"))
+    train_dataset, val_dataset, test_dataset = split_combined_dataset(combined_dir, config.train_val_split)
 
-    # Create DataLoaders
+    # Создать DataLoaders
     train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=config.batch_size, shuffle=True, collate_fn=lambda batch: collate_fn(batch, original_dataset))
     val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=config.batch_size, shuffle=False, collate_fn=lambda batch: collate_fn(batch, original_dataset))
     test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=config.batch_size, shuffle=False, collate_fn=lambda batch: collate_fn(batch, original_dataset))

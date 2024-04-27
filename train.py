@@ -36,13 +36,24 @@ def validate_model(model, val_loader, criterion, device):
     val_acc = correct / total
     return val_loss, val_acc
 
-def train_model(model, train_loader, val_loader, num_epochs, lr, device, logger, save_dir=None):
+def early_stopping(val_loss, best_val_loss, patience, counter):
+    if val_loss < best_val_loss:
+        best_val_loss = val_loss
+        counter = 0
+    else:
+        counter += 1
+    return best_val_loss, counter
+
+def train_model(model, train_loader, val_loader, num_epochs, lr, device, logger, patience=5, save_dir=None):
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=lr)
 
     train_losses = []
     val_losses = []
     val_accuracies = []
+
+    best_val_loss = float('inf')
+    early_stop_counter = 0
 
     for epoch in range(num_epochs):
         logger.info(f"Epoch {epoch+1}/{num_epochs}:")
@@ -54,6 +65,12 @@ def train_model(model, train_loader, val_loader, num_epochs, lr, device, logger,
         val_accuracies.append(val_acc)
 
         logger.info(f"Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}, Val Acc: {val_acc:.4f}")
+
+        best_val_loss, early_stop_counter = early_stopping(val_loss, best_val_loss, patience, early_stop_counter)
+
+        if early_stop_counter >= patience:
+            logger.info("Early stopping triggered. Training stopped.")
+            break
 
     plot_training_curves(train_losses, val_losses, val_accuracies, save_dir)
 
