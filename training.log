@@ -1,2 +1,42 @@
-2024-04-27 09:07:35,278 - utils - INFO - Training a new model...
-2024-04-27 09:07:35,309 - utils - INFO - Epoch 1/25:
+2024-04-27 09:57:41,877 - utils - INFO - Training a new model...
+2024-04-27 09:57:42,869 - utils - INFO - Epoch 1/10:
+2024-04-27 10:03:42,065 - utils - INFO - Train Loss: 1.6956, Val Loss: 1.4971, Val Acc: 0.4814
+2024-04-27 10:03:42,065 - utils - INFO - Epoch 2/10:
+2024-04-27 10:06:37,980 - utils - INFO - Train Loss: 1.3199, Val Loss: 1.2876, Val Acc: 0.5436
+2024-04-27 10:06:37,980 - utils - INFO - Epoch 3/10:
+2024-04-27 10:06:50,625 - utils - INFO - Train Loss: 1.1643, Val Loss: 1.3273, Val Acc: 0.5576
+2024-04-27 10:06:50,625 - utils - INFO - Epoch 4/10:
+2024-04-27 10:07:03,329 - utils - INFO - Train Loss: 0.9746, Val Loss: 1.1469, Val Acc: 0.6017
+2024-04-27 10:07:03,329 - utils - INFO - Epoch 5/10:
+2024-04-27 10:07:15,949 - utils - INFO - Train Loss: 0.9610, Val Loss: 1.3173, Val Acc: 0.5700
+2024-04-27 10:07:15,949 - utils - INFO - Epoch 6/10:
+2024-04-27 10:07:28,586 - utils - INFO - Train Loss: 0.8309, Val Loss: 1.2518, Val Acc: 0.5917
+2024-04-27 10:07:28,586 - utils - INFO - Epoch 7/10:
+2024-04-27 10:07:41,894 - utils - INFO - Train Loss: 0.5928, Val Loss: 1.3376, Val Acc: 0.5844
+2024-04-27 10:07:41,894 - utils - INFO - Epoch 8/10:
+2024-04-27 10:07:54,740 - utils - INFO - Train Loss: 0.4983, Val Loss: 1.3418, Val Acc: 0.6033
+2024-04-27 10:07:54,740 - utils - INFO - Epoch 9/10:
+2024-04-27 10:08:07,462 - utils - INFO - Train Loss: 0.3848, Val Loss: 1.5152, Val Acc: 0.5901
+2024-04-27 10:08:07,462 - utils - INFO - Early stopping triggered. Training stopped.
+2024-04-27 10:10:34,433 - utils - INFO - Training a new model...
+2024-04-27 10:10:35,403 - utils - INFO - Epoch 1/10:
+2024-04-27 10:15:38,810 - utils - INFO - Train Loss: 1.5481, Val Loss: 1.3288, Val Acc: 0.5333
+2024-04-27 10:15:38,810 - utils - INFO - Epoch 2/10:
+2024-04-27 10:15:59,898 - utils - INFO - Train Loss: 1.1855, Val Loss: 1.2034, Val Acc: 0.5747
+2024-04-27 10:15:59,898 - utils - INFO - Epoch 3/10:
+2024-04-27 10:22:34,747 - utils - INFO - Train Loss: 1.0509, Val Loss: 1.1181, Val Acc: 0.6122
+2024-04-27 10:22:34,747 - utils - INFO - Epoch 4/10:
+2024-04-27 10:26:28,912 - utils - INFO - Train Loss: 0.9080, Val Loss: 1.0706, Val Acc: 0.6218
+2024-04-27 10:26:28,912 - utils - INFO - Epoch 5/10:
+2024-04-27 10:26:50,314 - utils - INFO - Train Loss: 0.7762, Val Loss: 1.0390, Val Acc: 0.6421
+2024-04-27 10:26:50,314 - utils - INFO - Epoch 6/10:
+2024-04-27 10:27:11,783 - utils - INFO - Train Loss: 0.6247, Val Loss: 1.0698, Val Acc: 0.6509
+2024-04-27 10:27:11,783 - utils - INFO - Epoch 7/10:
+2024-04-27 10:27:32,910 - utils - INFO - Train Loss: 0.5733, Val Loss: 1.0895, Val Acc: 0.6577
+2024-04-27 10:27:32,910 - utils - INFO - Epoch 8/10:
+2024-04-27 10:27:54,036 - utils - INFO - Train Loss: 0.4514, Val Loss: 1.1929, Val Acc: 0.6481
+2024-04-27 10:27:54,036 - utils - INFO - Epoch 9/10:
+2024-04-27 10:28:15,091 - utils - INFO - Train Loss: 0.3501, Val Loss: 1.2519, Val Acc: 0.6475
+2024-04-27 10:28:15,091 - utils - INFO - Epoch 10/10:
+2024-04-27 10:28:36,157 - utils - INFO - Train Loss: 0.3008, Val Loss: 1.3386, Val Acc: 0.6468
+2024-04-27 10:28:36,157 - utils - INFO - Early stopping triggered. Training stopped.
